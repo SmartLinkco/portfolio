@@ -106,24 +106,46 @@ function initModal() {
 }
 
 /* =========================================
-   4. Form Submission (Google Apps Script)
+   4. Form Submission & Payments
    ========================================= */
 function initForms() {
-    const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; // User must replace this
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby5bIpxcQBx_ULAYzukby97SDGocKZBKEuuginGKVGSnMkMbjd9dupEd1ybRyjwc1-r/exec'; // User must replace this
+    const paystackPublicKey = 'pk_test_ce2a7dd2920d05c8d41852656ffa92304b8d46a9';
+
+    // Pricing Map (in GHS)
+    const prices = {
+        'Foundations Program': 800,
+        'Career Accelerator Program': 2500,
+        'Tech Leadership': 6000
+    };
+
+    const handleSubmission = (form, formData, statusDiv, submitBtn, originalBtnText) => {
+        fetch(scriptURL, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                statusDiv.innerText = 'Success! Check your email.';
+                statusDiv.style.color = '#4ade80';
+                form.reset();
+                if (form.id === 'registrationForm') {
+                    setTimeout(() => window.closeModal(), 3000);
+                }
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                statusDiv.innerText = 'Error! Please try again.';
+                statusDiv.style.color = '#f87171';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            });
+    };
 
     const settings = {
-        'contactForm': {
-            statusId: 'formStatus',
-            successMsg: 'Message sent successfully. I will be in touch shortly.',
-            errorMsg: 'There was an error sending your message. Please try again.',
-            redirect: false
-        },
-        'registrationForm': {
-            statusId: 'regStatus',
-            successMsg: 'Application submitted! Check your email for confirmation.',
-            errorMsg: 'Submission failed. Please try again or contact me directly.',
-            redirect: false // Could redirect to a thank you page
-        }
+        'contactForm': { statusId: 'formStatus', type: 'contact' },
+        'registrationForm': { statusId: 'regStatus', type: 'payment' }
     };
 
     for (const [formId, config] of Object.entries(settings)) {
@@ -132,45 +154,56 @@ function initForms() {
             form.addEventListener('submit', e => {
                 e.preventDefault();
 
-                if (scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
-                    alert('Backend not connected yet. Please deploy the Google Apps Script and update main.js with the URL.');
+                if (scriptURL.includes('YOUR_GOOGLE_APPS_SCRIPT')) {
+                    alert('Please deploy backend.gs and update the URL in main.js');
                     return;
                 }
 
                 const statusDiv = document.getElementById(config.statusId);
                 const submitBtn = form.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn.innerText;
-
-                statusDiv.innerText = 'Sending...';
-                statusDiv.style.color = 'var(--text-secondary)';
-                submitBtn.disabled = true;
-                submitBtn.innerText = 'Processing...';
-
                 const formData = new FormData(form);
 
-                // GAS requires data as query parameters or JSON body handled carefully with CORS
-                // Standard fetch to GAS Web App
-                fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        statusDiv.innerText = config.successMsg;
-                        statusDiv.style.color = '#4ade80'; // Success green
-                        form.reset();
-                        if (formId === 'registrationForm') {
-                            setTimeout(() => window.closeModal(), 3000);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error!', error.message);
-                        statusDiv.innerText = config.errorMsg;
-                        statusDiv.style.color = '#f87171'; // Error red
-                    })
-                    .finally(() => {
+                statusDiv.innerText = 'Processing...';
+                submitBtn.disabled = true;
+
+                // Payment Flow
+                if (config.type === 'payment') {
+                    const email = formData.get('email');
+                    const packageName = formData.get('package');
+                    const amount = prices[packageName];
+
+                    if (!amount) {
+                        statusDiv.innerText = 'Error: Invalid Package Selected';
                         submitBtn.disabled = false;
-                        submitBtn.innerText = originalBtnText;
+                        return;
+                    }
+
+                    const handler = PaystackPop.setup({
+                        key: paystackPublicKey,
+                        email: email,
+                        amount: amount * 100, // in kobo
+                        currency: 'GHS',
+                        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+                        callback: function (response) {
+                            // Payment Success
+                            statusDiv.innerText = 'Payment Verified. Registering...';
+                            formData.append('reference', response.reference);
+                            handleSubmission(form, formData, statusDiv, submitBtn, originalBtnText);
+                        },
+                        onClose: function () {
+                            statusDiv.innerText = 'Payment cancelled.';
+                            submitBtn.disabled = false;
+                            submitBtn.innerText = originalBtnText;
+                        }
                     });
+
+                    handler.openIframe();
+
+                } else {
+                    // Normal Contact Form
+                    handleSubmission(form, formData, statusDiv, submitBtn, originalBtnText);
+                }
             });
         }
     }
