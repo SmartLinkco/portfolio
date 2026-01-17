@@ -6,23 +6,24 @@
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
-    
+
     /* -- Accent / Brand -- */
-    --accent-blue: #3b82f6; /* Executive Blue */
+    --accent-blue: #3b82f6;
+    /* Executive Blue */
     --accent-glow: rgba(59, 130, 246, 0.15);
     --border-subtle: rgba(255, 255, 255, 0.08);
 
     /* -- Typography -- */
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
-    
+
     /* -- Spacing -- */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 8rem;
-    
+
     /* -- Container -- */
     --container-width: 1200px;
     --header-height: 80px;
@@ -33,7 +34,9 @@
 }
 
 /* --- Reset & Base --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -69,7 +72,12 @@ ul {
 }
 
 /* --- Typography --- */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
     font-weight: 600;
     line-height: 1.1;
@@ -77,9 +85,19 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: -0.02em;
 }
 
-h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
-h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: var(--spacing-md); }
-h3 { font-size: 1.5rem; margin-bottom: var(--spacing-sm); }
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: var(--spacing-md);
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
 
 p {
     color: var(--text-secondary);
@@ -94,7 +112,9 @@ p {
     background-clip: text;
 }
 
-.text-accent { color: var(--accent-blue); }
+.text-accent {
+    color: var(--accent-blue);
+}
 
 /* --- Layout --- */
 .container {
@@ -154,7 +174,8 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(15, 15, 17, 0.85); /* Glassmorphism */
+    background: rgba(15, 15, 17, 0.85);
+    /* Glassmorphism */
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-subtle);
     display: flex;
@@ -185,12 +206,14 @@ nav a {
     font-weight: 500;
 }
 
-nav a:hover, nav a.active {
+nav a:hover,
+nav a.active {
     color: var(--text-primary);
 }
 
 .nav-cta {
-    display: none; /* Desktop CTA in nav if needed, or mobile toggle */
+    display: none;
+    /* Desktop CTA in nav if needed, or mobile toggle */
 }
 
 /* Mobile Toggle */
@@ -200,6 +223,7 @@ nav a:hover, nav a.active {
     gap: 6px;
     cursor: pointer;
 }
+
 .menu-toggle span {
     width: 24px;
     height: 2px;
@@ -211,15 +235,74 @@ nav a:hover, nav a.active {
 .hero {
     min-height: 90vh;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    /* Align grid content to bottom for the "vertically end" feel */
     padding-top: var(--header-height);
-    background: 
+    background:
         radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 25%);
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 0;
+    /* Flush bottom for image */
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+    width: 100%;
+    padding-bottom: var(--spacing-lg);
+    /* Add padding back to container */
 }
 
 .hero-content {
-    max-width: 800px;
+    max-width: 100%;
+    z-index: 20;
+    /* Ensure content is above image on mobile */
+    position: relative;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* Align image bottom */
+    height: 100%;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 550px;
+    /* Increased size */
+    height: auto;
+    border-radius: 2px;
+    position: relative;
+    z-index: 10;
+    /* White glowing border effect */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, 0.3),
+        0 20px 40px rgba(0, 0, 0, 0.5);
+    /* Kept deep shadow for depth mixed with glow */
+    filter: grayscale(20%) contrast(1.1);
+    /* removed masking or absolute positioning on desktop to let it flow naturally but bigger */
+}
+
+.hero-blob {
+    position: absolute;
+    width: 400px;
+    /* Larger blob */
+    height: 400px;
+    background: var(--accent-blue);
+    filter: blur(80px);
+    opacity: 0.2;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .eyebrow {
@@ -236,6 +319,54 @@ nav a:hover, nav a.active {
     display: flex;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
+}
+
+/* Responsive Buttons */
+.mobile-text {
+    display: none;
+}
+
+/* Carousel */
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* Mask edges */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.carousel-track {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+    padding: 1rem 0;
+}
+
+.carousel-slide {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.carousel-slide:hover {
+    opacity: 1;
+    color: var(--text-primary);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* --- Components: Cards (Services/Grid) --- */
@@ -271,8 +402,11 @@ nav a:hover, nav a.active {
 /* --- Forms & Modal --- */
 .modal-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.8);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(4px);
     z-index: 2000;
     display: flex;
@@ -314,7 +448,9 @@ nav a:hover, nav a.active {
     margin-bottom: 0.5rem;
 }
 
-.form-input, .form-select, .form-textarea {
+.form-input,
+.form-select,
+.form-textarea {
     width: 100%;
     background: var(--bg-body);
     border: 1px solid var(--border-subtle);
@@ -330,23 +466,103 @@ nav a:hover, nav a.active {
 }
 
 /* --- Utilities --- */
-.hidden { display: none; }
-.mt-1 { margin-top: var(--spacing-sm); }
-.mt-2 { margin-top: var(--spacing-md); }
-.text-center { text-align: center; }
+.hidden {
+    display: none;
+}
+
+.mt-1 {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-2 {
+    margin-top: var(--spacing-md);
+}
+
+.text-center {
+    text-align: center;
+}
 
 /* --- Responsive --- */
+@media (max-width: 900px) {
+    .hero-grid {
+        display: block;
+        /* Break grid */
+        text-align: center;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 20;
+    }
+
+    .hero-image-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        align-items: flex-end;
+        /* Align image to bottom */
+        overflow: hidden;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.15;
+        /* Dimmed heavily */
+        filter: grayscale(100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 80%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 80%, transparent 100%);
+        max-width: none;
+        box-shadow: none;
+        border: none;
+        /* Remove glow on mobile */
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+}
+
 @media (max-width: 768px) {
     nav ul {
-        display: none; /* Mobile menu needed */
+        display: none;
+        /* Mobile menu needed */
     }
+
     .menu-toggle {
         display: flex;
     }
+
     .hero {
-        min-height: 80vh;
+        min-height: auto;
+        padding-top: calc(var(--header-height) + 2rem);
+        padding-bottom: 4rem;
     }
+
     h1 {
         font-size: 2.5rem;
+    }
+
+    /* Button Text Swap */
+    .desktop-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: inline;
+    }
+
+    .btn {
+        padding: 0.75rem 1.25rem;
+        /* Slightly tighter padding */
+        font-size: 0.95rem;
+        white-space: nowrap;
+        /* Prevent wrap as requested */
     }
 }
