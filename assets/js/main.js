@@ -109,8 +109,8 @@ function initModal() {
    4. Form Submission & Payments
    ========================================= */
 function initForms() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzBArKztbv8L3NoyByYlKpt5k3wPQfVmTDP6R5u9sxnwT0REqpgsJuZGSj3qWnbKcGg/exec'; // User must replace this
-    const paystackPublicKey = 'pk_test_ce2a7dd2920d05c8d41852656ffa92304b8d46a9';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz1J_jhKVf5c3HIYxwaANMEO95pwmjuBy5GXaCpMG-FcS4TDriJfYaQp8_NewDhFiA/exec'; // User must replace this
+    const paystackPublicKey = 'pk_live_961d8aeef06ccf444219f7a67d9153f740959733';
 
     // Pricing Map (in GHS)
     const prices = {
