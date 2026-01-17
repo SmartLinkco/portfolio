@@ -109,7 +109,7 @@ function initModal() {
    4. Form Submission & Payments
    ========================================= */
 function initForms() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycby5bIpxcQBx_ULAYzukby97SDGocKZBKEuuginGKVGSnMkMbjd9dupEd1ybRyjwc1-r/exec'; // User must replace this
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzBArKztbv8L3NoyByYlKpt5k3wPQfVmTDP6R5u9sxnwT0REqpgsJuZGSj3qWnbKcGg/exec'; // User must replace this
     const paystackPublicKey = 'pk_test_ce2a7dd2920d05c8d41852656ffa92304b8d46a9';
 
     // Pricing Map (in GHS)
@@ -125,19 +125,33 @@ function initForms() {
             body: formData
         })
             .then(response => {
-                statusDiv.innerText = 'Success! Check your email.';
-                statusDiv.style.color = '#4ade80';
-                form.reset();
                 if (form.id === 'registrationForm') {
-                    setTimeout(() => window.closeModal(), 3000);
+                    // Transform modal to success state
+                    const modalContent = form.closest('.modal-content');
+                    modalContent.innerHTML = `
+                        <div style="text-align: center; padding: 2rem 1rem;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+                            <h3 class="text-accent">Registration Complete!</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                                Your payment was successful and your spot has been reserved.
+                                <br>check your email for the confirmation details.
+                            </p>
+                            <button class="btn btn-outline" onclick="window.closeModal()">Close</button>
+                        </div>
+                    `;
+                } else {
+                    // Contact form success
+                    statusDiv.innerText = 'Success! Check your email.';
+                    statusDiv.style.color = '#4ade80';
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
                 }
             })
             .catch(error => {
                 console.error('Error!', error.message);
                 statusDiv.innerText = 'Error! Please try again.';
                 statusDiv.style.color = '#f87171';
-            })
-            .finally(() => {
                 submitBtn.disabled = false;
                 submitBtn.innerText = originalBtnText;
             });

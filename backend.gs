@@ -5,7 +5,7 @@
 
 const CONFIG = {
   // Replace with the ID of your Google Sheet
-  SPREADSHEET_ID: 'YOUR_SPREADSHEET_ID_HERE', 
+  SPREADSHEET_ID: '1VjAEn55aYmWr0U-i1JM1tjTts50D6m1Qyrhwrqd-uoY', 
   ADMIN_EMAIL: 'mrgyan@veritrack.cloud',
   PAYSTACK_SECRET_KEY: 'sk_test_386ab2f9ed7d0b53f45666721aa4f208e483c28c',
   BRAND_COLOR: '#3b82f6', // Executive Blue
@@ -25,9 +25,11 @@ function doPost(e) {
     }
 
     // 2. Verify Payment (if reference exists)
-    var paymentInfo = { verified: false, amount: 0, channel: 'N/A' };
+    // Initialize payment info
+    data.paymentAmount = 0;
+    
     if (data.reference) {
-        paymentInfo = verifyPaystack(data.reference);
+        var paymentInfo = verifyPaystack(data.reference);
         if (!paymentInfo.verified) {
             throw new Error("Payment verification failed.");
         }
@@ -83,8 +85,7 @@ function verifyPaystack(ref) {
 }
 
 function saveToSheet(data) {
-    // NOTE: You must run setup() once to create headers!
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var sheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID).getActiveSheet();
     var timestamp = new Date();
     
     sheet.appendRow([
@@ -95,6 +96,7 @@ function saveToSheet(data) {
         data.package || data.subject || '', // Item
         data.goals || data.message || '',   // Details
         data.paymentStatus,
+        data.paymentAmount || 0,            // Amount
         data.reference || ''
     ]);
 }
@@ -124,7 +126,8 @@ function sendUserEmail(data) {
                 ${data.reference ? `
                 <div style="background-color:#eff6ff; border-left:4px solid #3b82f6; padding:15px; margin:25px 0; border-radius: 2px;">
                     <p style="margin:0; color:#1e40af; font-weight:bold; font-size:14px;">PAYMENT VERIFIED</p>
-                    <p style="margin:5px 0 0; color:#3b82f6; font-size:13px;">Ref: ${data.reference}</p>
+                    <p style="margin:5px 0 0; color:#3b82f6; font-size:13px;">Amount: GHS ${data.paymentAmount}</p>
+                    <p style="margin:2px 0 0; color:#64748b; font-size:13px;">Ref: ${data.reference}</p>
                 </div>
                 ` : ''}
                 
@@ -159,17 +162,58 @@ function sendUserEmail(data) {
 }
 
 function sendAdminEmail(data) {
-    var subject = "New Submission: " + (data.package || "Contact Form");
+    var subject = "New Submission: " + (data.package || data.subject || "Contact Form");
+    
     var htmlBody = `
-    <h3>New Website Submission</h3>
-    <ul>
-        <li><strong>Name:</strong> ${data.name}</li>
-        <li><strong>Email:</strong> ${data.email}</li>
-        <li><strong>Phone:</strong> ${data.phone}</li>
-        <li><strong>Item:</strong> ${data.package || data.subject}</li>
-        <li><strong>Details:</strong> ${data.goals || data.message}</li>
-        <li><strong>Payment Ref:</strong> ${data.reference || 'N/A'}</li>
-    </ul>
+    <!DOCTYPE html>
+    <html>
+    <body style="margin:0; padding:0; background-color:#f4f4f5; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;">
+        <div style="max-width:600px; margin:0 auto; background-color:#ffffff; border-radius:4px; overflow:hidden;">
+            <div style="background-color:#1a1a1d; padding:20px; color:#ffffff; text-align:center;">
+                <h2 style="margin:0; font-size:18px;">New Submission Received</h2>
+                <p style="margin:5px 0 0; font-size:12px; color:#94a3b8;">${new Date().toLocaleString()}</p>
+            </div>
+            
+            <div style="padding:30px;">
+                <table style="width:100%; border-collapse:collapse;">
+                    <tr style="border-bottom:1px solid #e2e8f0;">
+                        <td style="padding:10px 0; color:#64748b; width:120px; font-size:14px;"><strong>Name</strong></td>
+                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;">${data.name}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;">
+                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Email</strong></td>
+                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;"><a href="mailto:${data.email}" style="color:#3b82f6; text-decoration:none;">${data.email}</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;">
+                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Phone</strong></td>
+                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;"><a href="tel:${data.phone}" style="color:#3b82f6; text-decoration:none;">${data.phone}</a></td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;">
+                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Item/Package</strong></td>
+                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;">${data.package || data.subject}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;">
+                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Message/Goals</strong></td>
+                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;">${data.goals || data.message}</td>
+                    </tr>
+                    ${data.reference ? `
+                    <tr style="background-color:#f0fdf4;">
+                        <td style="padding:10px; color:#15803d; font-size:14px;"><strong>Payment</strong></td>
+                        <td style="padding:10px; color:#15803d; font-size:14px;">
+                            <strong>GHS ${data.paymentAmount}</strong><br>
+                            <span style="font-size:12px;">Ref: ${data.reference}</span>
+                        </td>
+                    </tr>
+                    ` : ''}
+                </table>
+                
+                <div style="margin-top:30px; text-align:center;">
+                    <a href="https://docs.google.com/spreadsheets/d/${CONFIG.SPREADSHEET_ID}" style="background-color:#0f0f11; color:#ffffff; padding:10px 20px; text-decoration:none; border-radius:4px; font-size:14px;">View in Google Sheets</a>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
     `;
     
     GmailApp.sendEmail(CONFIG.ADMIN_EMAIL, subject, "New submission received.", {
@@ -178,6 +222,6 @@ function sendAdminEmail(data) {
 }
 
 function setup() {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Phone', 'Item', 'Details', 'Payment Status', 'Reference']);
+    var sheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID).getActiveSheet();
+    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Phone', 'Item', 'Details', 'Payment Status', 'Amount', 'Reference']);
 }
