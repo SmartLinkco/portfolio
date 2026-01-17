@@ -222,3 +222,132 @@ function initForms() {
         }
     }
 }
+
+/* =========================================
+5. In-Person Carousel Logic
+========================================= */
+function initInPersonCarousel() {
+    const track = document.getElementById('inPersonTrack');
+    const wrapper = document.getElementById('inPersonWrapper');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+
+    if (!track || !wrapper) return;
+
+    // Clone items for seamless infinite loop (double content)
+    const items = Array.from(track.children);
+    items.forEach(item => {
+        const clone = item.cloneNode(true);
+        track.appendChild(clone);
+    });
+
+    // Loop Variables
+    let scrollAmount = 0;
+    const speedNormal = 0.8; // pixels per frame
+    let currentSpeed = speedNormal;
+    let isPaused = false;
+    let animationId;
+
+    // Manual Drag Variables
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const animate = () => {
+        if (!isPaused && !isDown) {
+            scrollAmount += currentSpeed;
+            const maxScroll = track.scrollWidth / 2; // Split point since we cloned simple 1x
+
+            if (scrollAmount >= maxScroll) {
+                scrollAmount = 0; // Reset seamlessly
+            }
+
+            wrapper.scrollLeft = scrollAmount;
+        }
+        animationId = requestAnimationFrame(animate);
+    };
+
+    // Start Animation
+    animationId = requestAnimationFrame(animate);
+
+    // --- Controls ---
+
+    // Hover to Pause
+    wrapper.addEventListener('mouseenter', () => isPaused = true);
+    wrapper.addEventListener('mouseleave', () => {
+        if (pauseBtn.innerText === '⏸') isPaused = false;
+        isDown = false;
+    });
+
+    // Drag to Scroll (Manual)
+    wrapper.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isPaused = true;
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+        track.style.cursor = 'grabbing';
+    });
+
+    wrapper.addEventListener('mouseup', () => {
+        isDown = false;
+        if (pauseBtn.innerText === '⏸') isPaused = false;
+        track.style.cursor = 'grab';
+        scrollAmount = wrapper.scrollLeft;
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 2; // scroll-fast
+        wrapper.scrollLeft = scrollLeft - walk;
+        scrollAmount = wrapper.scrollLeft;
+    });
+
+    // Touch Support
+    wrapper.addEventListener('touchstart', (e) => {
+        isDown = true;
+        isPaused = true;
+        startX = e.touches[0].pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+    });
+
+    wrapper.addEventListener('touchend', () => {
+        isDown = false;
+        if (pauseBtn.innerText === '⏸') isPaused = false;
+        scrollAmount = wrapper.scrollLeft;
+    });
+
+    wrapper.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        // e.preventDefault(); // allow vertical scroll
+        const x = e.touches[0].pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 2;
+        wrapper.scrollLeft = scrollLeft - walk;
+        scrollAmount = wrapper.scrollLeft;
+    });
+
+    // Buttons
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+        wrapper.scrollBy({ left: -300, behavior: 'smooth' });
+        setTimeout(() => scrollAmount = wrapper.scrollLeft, 500);
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+        wrapper.scrollBy({ left: 300, behavior: 'smooth' });
+        setTimeout(() => scrollAmount = wrapper.scrollLeft, 500);
+    });
+
+    if (pauseBtn) pauseBtn.addEventListener('click', () => {
+        if (pauseBtn.innerText === '⏸') {
+            isPaused = true;
+            pauseBtn.innerText = '▶';
+        } else {
+            isPaused = false;
+            pauseBtn.innerText = '⏸';
+        }
+    });
+}
+
+initInPersonCarousel();

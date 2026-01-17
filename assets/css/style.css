@@ -399,6 +399,121 @@ nav a.active {
     margin-bottom: var(--spacing-sm);
 }
 
+/* --- Components: Project Showcase --- */
+.project-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: var(--transition-medium);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--text-secondary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.project-preview {
+    height: 200px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    transition: var(--transition-fast);
+}
+
+.project-card:hover .project-overlay {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.project-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.project-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.project-link {
+    margin-top: auto;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--accent-blue);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+/* Specific Project Gradients (Placeholders) */
+.bg-veritrack {
+    background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+}
+
+.bg-finance {
+    background: linear-gradient(135deg, #065f46 0%, #064e3b 100%);
+}
+
+.bg-auralis {
+    background: linear-gradient(135deg, #701a75 0%, #4a044e 100%);
+}
+
+.bg-techjam {
+    background: linear-gradient(135deg, #be185d 0%, #831843 100%);
+}
+
+.bg-confyd {
+    background: linear-gradient(135deg, #b45309 0%, #78350f 100%);
+}
+
+.bg-trading {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+}
+
+.bg-neuro {
+    background: linear-gradient(135deg, #0e7490 0%, #155e75 100%);
+}
+
+.bg-connect {
+    background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%);
+}
+
+.bg-agri {
+    background: linear-gradient(135deg, #166534 0%, #14532d 100%);
+}
+
 /* --- Forms & Modal --- */
 .modal-overlay {
     position: fixed;
@@ -432,6 +547,101 @@ nav a.active {
     transform: translateY(20px);
     transition: var(--transition-medium);
 }
+
+/* --- Components: In-Person Carousel --- */
+.carousel-section {
+    padding: var(--spacing-lg) 0;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-body);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: var(--spacing-md);
+    overflow: hidden;
+    /* Hide scrollbar */
+}
+
+/* We will use JS for scrolling, so flex row is key */
+.carousel-track-js {
+    display: flex;
+    gap: var(--spacing-md);
+    width: max-content;
+    /* Ensure it fits all items */
+    cursor: grab;
+    touch-action: pan-x;
+    /* Allow horizontal scrolling */
+}
+
+.carousel-track-js:active {
+    cursor: grabbing;
+}
+
+.in-person-item {
+    flex: 0 0 auto;
+    width: auto;
+    /* Allow variable width */
+    max-width: 600px;
+    /* Cap super wide images */
+    height: 350px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    position: relative;
+    user-select: none;
+    /* Prevent selection while dragging */
+}
+
+.in-person-item img {
+    height: 100%;
+    width: auto;
+    /* Maintain aspect ratio */
+    display: block;
+    pointer-events: none;
+    /* Prevent image drag */
+    filter: grayscale(20%);
+    transition: var(--transition-medium);
+}
+
+
+
+.in-person-item:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* Manual Controls (Optional, for "arrows" if user prefers clicking) */
+.carousel-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.control-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.control-btn:hover {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+/* --- Responsive Media Queries --- */
 
 .modal-overlay.open .modal-content {
     transform: translateY(0);
