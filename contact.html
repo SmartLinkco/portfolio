@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Stephen Gyan Bimpong</title>
+    <meta name="description" content="Contact Stephen Gyan Bimpong for coaching, consulting, and strategy sessions.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Header (Shared) -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                Stephen Gyan Bimpong<span class="text-accent">.</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="coaching.html">Coaching</a></li>
+                    <li><a href="consulting.html">Consulting</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" aria-label="Toggle Navigation">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" style="min-height: 50vh; align-items: center;">
+        <div class="container text-center">
+            <span class="eyebrow">Get in Touch</span>
+            <h1 class="text-gradient">Let's Work.</h1>
+            <p style="margin: 1rem auto;">
+                If you are building something important or repositioning your technical career, we can explore
+                alignment.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section style="background: var(--bg-surface); padding-top: var(--spacing-lg);">
+        <div class="container">
+            <div
+                style="max-width: 600px; margin: 0 auto; background: var(--bg-body); padding: var(--spacing-md); border-radius: 4px; border: 1px solid var(--border-subtle);">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-input" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" required
+                            placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject</label>
+                        <select id="subject" name="subject" class="form-select form-input">
+                            <option value="General Inquiry">General Inquiry</option>
+                            <option value="Consulting Request">Consulting Request</option>
+                            <option value="Speaking/Media">Speaking / Media</option>
+                            <option value="Coaching Info">Coaching Info</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-textarea form-input" rows="5" required
+                            placeholder="Briefly describe your project or needs..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+                <div id="formStatus" class="mt-2 text-center" style="font-size: 0.9rem;"></div>
+            </div>
+
+            <div class="text-center mt-2" style="margin-top: 3rem;">
+                <p>Prefer email? <a href="mailto:contact@example.com" class="text-accent">contact@example.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Shared) -->
+    <footer
+        style="background: var(--bg-surface); padding: var(--spacing-lg) 0; border-top: 1px solid var(--border-subtle);">
+        <div class="container" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <a href="index.html" class="logo">Stephen Gyan Bimpong<span class="text-accent">.</span></a>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Building Capacity. Architecting Systems.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Navigate</h4>
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li><a href="about.html" style="color: var(--text-secondary);">About</a></li>
+                        <li><a href="coaching.html" style="color: var(--text-secondary);">Coaching</a></li>
+                        <li><a href="consulting.html" style="color: var(--text-secondary);">Consulting</a></li>
+                        <li><a href="contact.html" style="color: var(--text-secondary);">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Connect</h4>
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li><a href="#" style="color: var(--text-secondary);">LinkedIn</a></li>
+                        <li><a href="#" style="color: var(--text-secondary);">Twitter</a></li>
+                        <li><a href="mailto:contact@example.com" style="color: var(--text-secondary);">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> Stephen Gyan Bimpong. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

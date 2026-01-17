@@ -1,571 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Check out my portfolio for impactful web development and design that brings ideas to life. Let’s create something remarkable!">
-    <meta name="author" content="Devcrud">
-    <title>Stephen's Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stephen Gyan Bimpong | Systems Architect & Tech Strategy</title>
+    <meta name="description"
+        content="Tech Coach, Software Architect, and Systems Strategist helping individuals and enterprises build scalable systems and elite tech talent.">
 
-    <!-- Basic SEO Meta Tags -->
-    <meta name="Stephen Gyan Bimpong" content="Stephen Bimpong, Gyan, Web Developer">
-    <meta name="author" content="Stephen Gyan Bimpong">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Gyan's Portfolio">
-    <meta property="og:description" content="Check out my portfolio for impactful web development and design that brings ideas to life. Let’s create something remarkable!">
-    <meta property="og:image" content="https://smartlinkco.github.io/portfolio/assets/imgs/man.jpg">
-    <meta property="og:url" content="https://smartlinkco.github.io/portfolio/index.html">
-    <meta property="og:type" content="website">
-
-    <!-- font icons -->
-    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-    <!-- Bootstrap + Steller main styles -->
-	<link rel="stylesheet" href="assets/css/steller.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
-    <!-- Page navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" data-spy="affix" data-offset-top="0">
+<body>
+
+    <!-- Header -->
+    <header>
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="assets/imgs/logo.svg" alt=""></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a href="index.html" class="logo">
+                Stephen Gyan Bimpong<span class="text-accent">.</span>
+            </a>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#service">Service</a>
-                    </li>                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testmonial">Testmonial</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="- btn btn-primary rounded ml-4" href="https://calendly.com/stephengyanbimpong777/30min">Let Meet!</a>
-                    </li>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="coaching.html">Coaching</a></li>
+                    <li><a href="consulting.html">Consulting</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
-            </div>
-        </div>          
-    </nav>
-    <!-- End of page navibation -->
+            </nav>
 
-    <!-- Page Header -->
-    <header class="header" id="home">
-        <div class="container">
-            <div class="infos">
-                <h6 class="subtitle">hello,I'm</h6>
-                <h6 class="title">Stephen Gyan Bimpong</h6>
-                <p>Web Developer / Automations Expert</p>
-
-                <div class="buttons pt-3">
-                    <button class="btn btn-primary rounded" onclick="window.location.href = 'https://form.jotform.com/243177001592553';" >HIRE ME</button>
-                    <button class="btn btn-dark rounded" onclick="window.location.href = 'https://calendly.com/stephengyanbimpong777/30min';">SCHEDULE AN APPOINTMENT</button>
-                </div>      
-
-                <div class="socials mt-4">
-                    <a class="social-item" href="https://www.facebook.com/share/4NerfVoNpdZaXKDs/?mibextid=LQQJ4d"><i class="ti-facebook"></i></a>
-                    <a class="social-item" href="https://www.linkedin.com/in/stephen-gyan-bimpong-b1b851284?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"><i class="ti-google"></i></a>
-                    <a class="social-item" href="https://github.com/SmartLinkco/"><i class="ti-github"></i></a>
-                    <a class="social-item" href="https://x.com/_Stephen_Gyan"><i class="ti-twitter"></i></a>
-                </div>
-            </div>              
-            <div class="img-holder">
-                <img src="assets/imgs/stevoo.png" alt="">
-            </div>      
-        </div>  
-
-        <!-- Header-widget -->
-        <div class="widget">
-            <div class="widget-item">
-                <h2>159</h2>
-                <p>Happy Clients</p>
-            </div>
-            <div class="widget-item">
-                <h2>548</h2>
-                <p>Project Completed</p>
-            </div>
-            <div class="widget-item">
-                <h2>5</h2>
-                <p>Systems Built</p>
+            <div class="menu-toggle" aria-label="Toggle Navigation">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </header>
-    <!-- End of Page Header -->
-    
-    <!-- About section -->
-    <section id="about" class="section mt-3">
-        <div class="container mt-5">
-            <div class="row text-center text-md-left">
-                <div class="col-md-3">
-                    <img src="assets/imgs/avatar.jpg" alt="" class="img-thumbnail mb-4">
-                </div>
-                <div class="pl-md-4 col-md-9">
-                    <h6 class="title">Stephen Gyan Bimpong</h6>
-                    <p class="subtitle">Web Developer | Automations Expert</p>
-                    <p>Hi there! I'm Stephen, a passionate Web Developer and Automations Expert committed to turning visions into realities. With a strong foundation in tech and design, I bring a unique blend of creativity and efficiency to every project.</p>
-                    <p>I’m not just a quick learner—I thrive on challenges and adapt seamlessly to new tools, trends, and tech. Let’s build something remarkable together, as I translate ideas into powerful, polished, and engaging digital experiences. Ready to elevate your brand? Let’s connect! </p>
-                    <button class="btn btn-primary rounded mt-3" onclick="window.location.href = 'https://calendly.com/stephengyanbimpong777/30min';">SCHEDULE AN APPOINTMENT</button>                   
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Service section -->
-    <section id="service" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Service</h6>
-            <h6 class="section-title mb-4">What I Do</h6>
-            <p class="mb-5 pb-4">I specialize in creating responsive websites and compelling visual designs that drive results. As a web developer and an expert in Automations, I blend creativity with technical expertise to deliver seamless, impactful user experiences. Known for my fast-learning and adaptable nature, I thrive in dynamic settings and am always ready to tackle new challenges, ensuring projects are executed efficiently and with a strong attention to detail. Let’s bring your ideas to life!</p>
-
-            <div class="row">
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-crown"></i>
-                            <h5>Routine Task Automations</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-desktop"></i>
-                            <h5>Web Development</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-mobile"></i>
-                            <h5>UI/UX Design</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
-                        <div class="card-body">
-                            <i class="icon ti-bar-chart"></i>
-                            <h5>Graphic Design</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End of Sectoin -->
-
-    <!-- Skills section -->
-    <section class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Skills</h6>
-            <h6 class="section-title mb-4">Why Choose me</h6>
-            <p class="mb-5 pb-4">I combine creativity with technical skill, adapt quickly to new challenges, and deliver high-quality results tailored to your vision. Let’s make your project stand out!</p>
-
-            <div class="row text-left">
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Google Apps Script</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>80%</span></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Web Development</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>89%</span></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">UI/UX Design</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>75%</span></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Zapier Automations</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>90%</span></div>
-                    </div>
-                </div>
-            </div>  
-        </div>
-    </section>
-    <!-- End of Skills sections -->
-
-    <!-- Portfolio section -->
-    <section id="portfolio" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Portfolio</h6>
-            <h6 class="section-title mb-4">Check My Recent Wonderful Works</h6>
-            <p class="mb-5 pb-4">Explore my work and see how creativity meets functionality. Check out my projects to discover the quality and innovation I bring to each design and development task.</p>
-
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/veritrack logo.png" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>VERITRACK SYSTEMS</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="
-                                https://veri-track.vercel.app"><i class="ti-link"></i></a>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/expertshub.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>THE EXPERTS HUB AFRICA</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="
-                                https://www.theexpertshubafrica.github.io/co"><i class="ti-link"></i></a>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">    
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-2.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>GOSPEL 1 HAIR STUDIO</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="https://smartlinkco.github.io/connect/Gospel%201/gospel1barbershop.html"><i class="ti-link"></i></a>
-                            </div>                              
-                        </div>
-                    </div>                  
-                </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/REXPAY.png" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>REXPAY ATTENDANCE SYSTEM</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="
-                                https://script.google.com/macros/s/AKfycbwe0llx7UksE2JiZFcjZ4yxjONGGVijA2JOsF_hFx_9AuhaSzsXf_SkZgcWBIKTa1-3/exec"><i class="ti-link"></i></a>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">    
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/katapowsis.jpeg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>KATAPOWSIS</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="https://www.katapowsis.com"><i class="ti-link"></i></a>
-                            </div>                              
-                        </div>
-                    </div>                  
-                </div>
-                <div class="col-sm-4">    
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/page83.png" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>PAGE 83 CONCEPTS</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="https://www.page83concepts.com"><i class="ti-link"></i></a>
-                            </div>                              
-                        </div>
-                    </div>                  
-                </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-1.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>BUNDLE HOUSE</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="
-                                https://smartlinkco.github.io/connect/bundles/masterbundles.html"><i class="ti-link"></i></a>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-3.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>E-HUB</h5>
-                                <a href=""><i class="ti-zoom-in"></i></a>
-                                <a href="https://smartlinkco.github.io/connect/e-HUB/e-HUB-Premium.html"><i class="ti-link"></i></a>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">    
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-4.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>GCTU ARCHIVE</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="https://smartlinkco.github.io/Collaborators/Passco%20Achive/gctuAchives.html"><i class="ti-link"></i></a>
-                            </div>                              
-                        </div>
-                    </div>                  
-                </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/consultium.png" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>CONSULTIUM</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="https://smartlinkco.github.io/consultium/"><i class="ti-link"></i></a>
-                            </div>  
-                        </div>
-                    </div>             
-                </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-5.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-infos">
-                                <h5>AutoWorld</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="https://smartlinkco.github.io/connect/AutoWorld/index.html"><i class="ti-link"></i></a>
-                            </div>  
-                        </div>
-                    </div>             
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!-- End of portfolio section -->
-
-    <!-- Testmonial Section -->
-    <section id="testmonial" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Testmonial</h6>
-            <h6 class="section-title mb-4">What People Say About Me</h6>
-            <p class="mb-5 pb-4">Hear from those I’ve worked with! Discover how my commitment to quality, creativity, and seamless collaboration has left a lasting impression.</p>
-
-
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/chemist.jpg" alt="">
-                                <p>“Working with Stephen on the Based Africa Hackathon was truly inspiring. As a fast learner with an unmatched drive, he quickly grasped blockchain technology and mastered Solidity, contributing innovative solutions to our project. His adaptability and problem-solving skills made a real impact, and his commitment to understanding and leveraging web3 technologies was impressive. Anyone looking for a dedicated and skilled tech partner would be lucky to work with him!”</p>
-                                <h1 class="title">Godfred (Chemcode)</h1>
-                                <h1 class="subtitle">Web3 Enthusiast</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/gospel.jpg" alt="">
-                                <p>“Stephen exceeded my expectations by building our professional website in just 5 days! His attention to detail and high-quality configurations brought my vision to life seamlessly. Not only was the turnaround time impressive, but the site also reflected exactly what I wanted for Gospel 1 Hair Studio. His dedication, skill, and efficiency make him a true asset to any project!”</p>
-                                <h1 class="title">Mr.Samuel Bimpong</h1>
-                                <h1 class="subtitle">CEO, Gospel 1 Hair Studio</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/rubies.jpg" alt="">
-                                <p>"Stephen has been a reliable and accessible partner throughout our journey at Rubies Cuisine. He developed an automated customer service chatbot for order taking that streamlined our process and improved customer interactions. If you're looking for someone who listens to your needs and delivers high-quality, efficient solutions, Stephen is the one to trust. His professionalism and commitment will truly make a difference for your business!"</p>
-                                <h1 class="title">Madam Ruby</h1>
-                                <h1 class="subtitle">CEO, Rubies Cuisine</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End of testmonial section -->
-
-    <!-- Blog Section -->
-    <!-- <section id="blog" class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">My Blogs</h6>
-            <h6 class="section-title mb-4">Latest News</h6>
-            <p class="mb-5 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. <br> rerum commodi corrupti, temporibus non quam.</p>
-
-            <div class="row text-left">
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/blog-1.jpg" alt="" class="card-img-top w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Designe for Everyone</h5>
-                            <div class="post-details">
-                                <a href="javascript:void(0)">Posted By: Admin</a>
-                                <a href="javascript:void(0)"><i class="ti-thumb-up"></i> 456</a>
-                                <a href="javascript:void(0)"><i class="ti-comment"></i> 123</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                            <a href="javascript:void(0)">Read More..</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/blog-2.jpg" alt="" class="card-img-top w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Web Layouts</h5>
-                            <div class="post-details">
-                                <a href="javascript:void(0)">Posted By: Admin</a>
-                                <a href="javascript:void(0)"><i class="ti-thumb-up"></i> 456</a>
-                                <a href="javascript:void(0)"><i class="ti-comment"></i> 123</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                            <a href="javascript:void(0)">Read More..</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/blog-3.jpg" alt="" class="card-img-top w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Bootstrap Framework</h5>
-                            <div class="post-details">
-                                <a href="javascript:void(0)">Posted By: Admin</a>
-                                <a href="javascript:void(0)"><i class="ti-thumb-up"></i> 456</a>
-                                <a href="javascript:void(0)"><i class="ti-comment"></i> 123</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                            <a href="javascript:void(0)">Read More..</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Hire me section -->
-    <section class="bg-gray p-0 section">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <div class="card bg-primary">
-                <div class="card-body text-light">
-                    <div class="row align-items-center">
-                        <div class="col-sm-9 text-center text-sm-left">
-                            <h5 class="mt-3">Hire Me For Your Project</h5>
-                            <p class="mb-3">Let’s bring your vision to life with creativity, precision, and dedication. Ready to start? </p>
-                        </div>
-                        <div class="col-sm-3 text-center text-sm-right">
-                            <button class="btn btn-light rounded" onclick="window.location.href = 'https://form.jotform.com/243177001592553';">Hire Me!</button>
-                        </div>
-                    </div>
-                </div> 
+            <div class="hero-content">
+                <span class="eyebrow">Tech Coach • Systems Architect • Strategist</span>
+                <h1 class="text-gradient">Building Scalable Systems.<br>Coaching Elite Tech Talent.</h1>
+                <p class="mt-2">
+                    I help individuals, startups, and organizations design, build, and scale reliable technology systems
+                    while developing the technical and strategic capacity required to compete globally.
+                </p>
+                <div class="hero-actions">
+                    <a href="coaching.html" class="btn btn-primary">View Coaching Programs</a>
+                    <a href="contact.html" class="btn btn-outline">Request Strategy Session</a>
+                </div>
             </div>
         </div>
-    </section>      
-    <!-- End od Hire me section. -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="position-relative section">
-        <div class="container text-center">
-            <h6 class="subtitle">Contact</h6>
-            <h6 class="section-title mb-4">Get In Touch With Me</h6>
-            <p class="mb-5 pb-4">Let’s connect! Reach out, and let’s discuss how I can help bring your ideas to life.</p>
-
-            <div class="contact text-left">
-                <div class="form">
-                    <h6 class="subtitle">Available 24/7</h6>
-                    <h6 class="section-title mb-4">Get In Touch</h6>
-                    <form>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Phone" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="contact-message" id="" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block rounded w-lg">Send Message</button>
-                    </form>
-                </div>
-                <div class="contact-infos">
-                    <div class="item">
-                        <i class="ti-location-pin"></i>
-                        <div class="">
-                            <h5>Location</h5>
-                            <p> Ghana, Accra</p>
-                        </div>                          
-                    </div>
-                    <div class="item">
-                        <i class="ti-mobile"></i>
-                        <div>
-                            <h5>Phone Number</h5>
-                            <p>(233) 59-254-8849</p>
-                        </div>                          
-                    </div>
-                    <div class="item">
-                        <i class="ti-email"></i>
-                        <div class="mb-0">
-                            <h5>Email Address</h5>
-                            <p>stephengyanbimpong777@gmail.com</p>
-                        </div>
-                    </div>
-                </div>                  
-            </div>
-        </div>  
-        <div id="map">
-            <iframe src="https://snazzymaps.com/embed/61257"></iframe>
-        </div>      
     </section>
-    <!-- End of Contact Section -->
 
-    <!-- Page Footer -->
-    <footer class="page-footer">
+    <!-- Credibility Block -->
+    <section style="background: var(--bg-surface); padding: var(--spacing-lg) 0;">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <p>&copy; Copyright <script>document.write(new Date().getFullYear())</script> </p>
+            <div class="grid-3 text-center">
+                <div>
+                    <h3 class="text-accent">Execution</h3>
+                    <p style="margin: 0 auto;">Focused on real-world systems deployment, not just theory.</p>
                 </div>
-                <div class="col-sm-6">
-                    <div class="socials">
-                        <a class="social-item" href="https://www.facebook.com/share/4NerfVoNpdZaXKDs/?mibextid=LQQJ4d"><i class="ti-facebook"></i></a>
-                        <a class="social-item" href="https://www.linkedin.com/in/stephen-gyan-bimpong-b1b851284?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"><i class="ti-google"></i></a>
-                        <a class="social-item" href="https://github.com/SmartLinkco/"><i class="ti-github"></i></a>
-                        <a class="social-item" href="https://x.com/_Stephen_Gyan"><i class="ti-twitter"></i></a>
-                    </div>
+                <div>
+                    <h3 class="text-accent">Architecture</h3>
+                    <p style="margin: 0 auto;">Designing secure, scalable, and maintainable enterprise platforms.</p>
+                </div>
+                <div>
+                    <h3 class="text-accent">Mentorship</h3>
+                    <p style="margin: 0 auto;">Moving aspiring engineers from tutorials to professional impact.</p>
                 </div>
             </div>
         </div>
-    </footer> 
-    <!-- End of page footer -->
-	
-	<!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
-    <!-- bootstrap 3 affix -->
-	<script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+    </section>
 
-    <!-- steller js -->
-    <script src="assets/js/steller.js"></script>
+    <!-- Services Overview -->
+    <section>
+        <div class="container">
+            <div style="margin-bottom: var(--spacing-lg);">
+                <h2>Areas of Impact</h2>
+                <div style="width: 60px; height: 3px; background: var(--accent-blue);"></div>
+            </div>
 
+            <div class="grid-3">
+                <!-- Service 1 -->
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Tech Coaching</h3>
+                    <p>Structured, outcome-driven programs for those ready to master software engineering. From
+                        foundations to leadership.</p>
+                    <a href="coaching.html" class="text-accent" style="display: block; margin-top: 1rem;">Explore
+                        Programs &rarr;</a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="card">
+                    <div class="card-icon">🏗️</div>
+                    <h3>Systems Architecture</h3>
+                    <p>Advising on scalable backends, API orchestration, and AI-enabled workflows for startups and
+                        enterprises.</p>
+                    <a href="consulting.html" class="text-accent" style="display: block; margin-top: 1rem;">View
+                        Advisory Services &rarr;</a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Product Strategy</h3>
+                    <p>Aligning technology decisions with business goals to ensure long-term growth and reduced
+                        technical debt.</p>
+                    <a href="consulting.html" class="text-accent" style="display: block; margin-top: 1rem;">See How I
+                        Work &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brief CTA -->
+    <section style="text-align: center;">
+        <div class="container">
+            <h2>Ready to build serious systems?</h2>
+            <p style="margin: 0 auto 2rem auto;">Join a coaching program or request a consultation for your team.</p>
+            <a href="coaching.html" class="btn btn-primary">Start Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        style="background: var(--bg-surface); padding: var(--spacing-lg) 0; border-top: 1px solid var(--border-subtle);">
+        <div class="container" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <a href="index.html" class="logo">Stephen Gyan Bimpong<span class="text-accent">.</span></a>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Building Capacity. Architecting Systems.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Navigate</h4>
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li><a href="about.html" style="color: var(--text-secondary);">About</a></li>
+                        <li><a href="coaching.html" style="color: var(--text-secondary);">Coaching</a></li>
+                        <li><a href="consulting.html" style="color: var(--text-secondary);">Consulting</a></li>
+                        <li><a href="contact.html" style="color: var(--text-secondary);">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Connect</h4>
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li><a href="#" style="color: var(--text-secondary);">LinkedIn</a></li>
+                        <li><a href="#" style="color: var(--text-secondary);">Twitter</a></li>
+                        <li><a href="mailto:contact@example.com" style="color: var(--text-secondary);">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> Stephen Gyan Bimpong. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>

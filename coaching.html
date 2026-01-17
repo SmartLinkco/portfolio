@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching Programs | Stephen Gyan Bimpong</title>
+    <meta name="description"
+        content="Premium tech coaching programs for software engineers, systems architects, and technical leaders.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Header (Shared) -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                Stephen Gyan Bimpong<span class="text-accent">.</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="coaching.html" class="active">Coaching</a></li>
+                    <li><a href="consulting.html">Consulting</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" aria-label="Toggle Navigation">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="min-height: 60vh; text-align: center; justify-content: center; flex-direction: column; align-items: center;">
+        <div class="container">
+            <span class="eyebrow">Coaching Programs</span>
+            <h1 class="text-gradient">Structured Paths to Mastery.</h1>
+            <p style="margin: 1rem auto;">
+                I do not offer tutorials. I offer execution-focused mentorship designed to move you from confusion to
+                clarity.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tiers -->
+    <section style="background: var(--bg-surface); padding-bottom: var(--spacing-xl);">
+        <div class="container">
+            <div class="grid-3" style="align-items: flex-start;">
+
+                <!-- Tier 1 -->
+                <div class="card" style="border-top: 4px solid var(--text-secondary);">
+                    <h3>Foundations</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">For beginners & early-stage learners.</p>
+                    <div style="margin: 1.5rem 0; font-family: var(--font-heading); font-size: 1.5rem;">
+                        GHS 800 <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 400;">/
+                            one-time</span>
+                    </div>
+                    <ul style="margin-bottom: 2rem; list-style: none; font-size: 0.95rem; line-height: 1.8;">
+                        <li>✓ 6 Weeks Duration</li>
+                        <li>✓ Personalized Learning Roadmap</li>
+                        <li>✓ Foundational Skills Practice</li>
+                        <li>✓ Guided Code Reviews</li>
+                    </ul>
+                    <button class="btn btn-outline" style="width: 100%;"
+                        onclick="openModal('Foundations Program')">Register</button>
+                </div>
+
+                <!-- Tier 2 (Highlighted) -->
+                <div class="card"
+                    style="border-top: 4px solid var(--accent-blue); transform: scale(1.05); z-index: 10; background: #1f1f22;">
+                    <span
+                        style="background: var(--accent-blue); color: white; padding: 2px 8px; font-size: 0.75rem; border-radius: 2px; text-transform: uppercase; font-weight: 600;">Best
+                        Value</span>
+                    <h3 class="mt-1">Career Accelerator</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">For serious learners seeking jobs.</p>
+                    <div style="margin: 1.5rem 0; font-family: var(--font-heading); font-size: 1.5rem;">
+                        GHS 2,500 <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 400;">/
+                            one-time</span>
+                    </div>
+                    <ul style="margin-bottom: 2rem; list-style: none; font-size: 0.95rem; line-height: 1.8;">
+                        <li>✓ 12 Weeks Duration</li>
+                        <li>✓ Weekly 1-on-1 Coaching</li>
+                        <li>✓ Portfolio-Ready Projects</li>
+                        <li>✓ CV & Interview Prep</li>
+                        <li>✓ System Design Guidance</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;"
+                        onclick="openModal('Career Accelerator Program')">Register</button>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="card" style="border-top: 4px solid var(--text-primary);">
+                    <h3>Leadership</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">For seniors & founders.</p>
+                    <div style="margin: 1.5rem 0; font-family: var(--font-heading); font-size: 1.5rem;">
+                        GHS 6,000 <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 400;">/
+                            one-time</span>
+                    </div>
+                    <ul style="margin-bottom: 2rem; list-style: none; font-size: 0.95rem; line-height: 1.8;">
+                        <li>✓ 16 Weeks Duration</li>
+                        <li>✓ Advanced Architecture</li>
+                        <li>✓ Live Project Strategy</li>
+                        <li>✓ Business & Freelancing</li>
+                    </ul>
+                    <button class="btn btn-outline" style="width: 100%;"
+                        onclick="openModal('Tech Leadership')">Register</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Form -->
+    <div class="modal-overlay" id="registrationModal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Program Registration</h3>
+                <button onclick="closeModal()"
+                    style="background: none; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;">&times;</button>
+            </div>
+
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="reg-name" class="form-label">Full Name</label>
+                    <input type="text" id="reg-name" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email" class="form-label">Email Address</label>
+                    <input type="email" id="reg-email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone" class="form-label">WhatsApp / Phone</label>
+                    <input type="tel" id="reg-phone" name="phone" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-package" class="form-label">Selected Package</label>
+                    <input type="text" id="reg-package" name="package" class="form-input" readonly
+                        style="background: var(--bg-surface-hover); color: var(--text-muted);">
+                </div>
+                <div class="form-group">
+                    <label for="reg-goals" class="form-label">Primary Goal</label>
+                    <textarea id="reg-goals" name="goals" class="form-textarea form-input" rows="3"
+                        placeholder="What do you want to achieve?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Application</button>
+            </form>
+            <div id="regStatus" class="mt-1 text-center" style="font-size: 0.9rem;"></div>
+        </div>
+    </div>
+
+    <!-- Footer (Shared) -->
+    <footer
+        style="background: var(--bg-surface); padding: var(--spacing-lg) 0; border-top: 1px solid var(--border-subtle);">
+        <div class="container" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <a href="index.html" class="logo">Stephen Gyan Bimpong<span class="text-accent">.</span></a>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Building Capacity. Architecting Systems.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Navigate</h4>
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li><a href="about.html" style="color: var(--text-secondary);">About</a></li>
+                        <li><a href="coaching.html" style="color: var(--text-secondary);">Coaching</a></li>
+                        <li><a href="consulting.html" style="color: var(--text-secondary);">Consulting</a></li>
+                        <li><a href="contact.html" style="color: var(--text-secondary);">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Connect</h4>
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li><a href="#" style="color: var(--text-secondary);">LinkedIn</a></li>
+                        <li><a href="#" style="color: var(--text-secondary);">Twitter</a></li>
+                        <li><a href="mailto:contact@example.com" style="color: var(--text-secondary);">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> Stephen Gyan Bimpong. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
