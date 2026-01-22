@@ -834,6 +834,58 @@ nav a.active {
     font-weight: 600;
 }
 
+/* --- Authoritative Section --- */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    /* Text wider than image */
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.authoritative-content h2 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+}
+
+.authoritative-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.authoritative-content p.lead {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.authoritative-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.authoritative-image {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+}
+
+.authoritative-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: grayscale(20%);
+    transition: var(--transition-medium);
+}
+
+.authoritative-image:hover img {
+    filter: grayscale(0%);
+}
+
 .profile-portrait {
     width: 80%;
     aspect-ratio: 3/4;
@@ -870,8 +922,76 @@ nav a.active {
     text-align: center;
 }
 
-/* --- Responsive --- */
+/* --- Components: Social Icons --- */
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.social-icon:hover {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.social-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
+}
+
+.contact-info-link {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.contact-info-link:hover {
+    color: var(--text-primary);
+}
+
 @media (max-width: 900px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .authoritative-image {
+        margin-top: 2rem;
+        /* Ensure spacing when stacked */
+    }
+
+    .authoritative-content h2 {
+        font-size: 1.75rem;
+    }
+
+    .authoritative-content p.lead {
+        font-size: 1.05rem;
+    }
+
+    .authoritative-content p {
+        font-size: 0.95rem;
+    }
+
     .hero-grid {
         display: block;
         /* Break grid */
