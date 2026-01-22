@@ -1042,10 +1042,15 @@ nav a.active {
     }
 
     .hero-image {
-        width: 100%;
+        width: 120%;
+        /* Slight zoom */
+        margin-left: -10%;
+        /* Center the zoom */
         height: 95%;
+        /* Fill nicer */
         object-fit: cover;
-        opacity: 0.55;
+        opacity: 0.6;
+        /* Slight bump in visibility */
         /* Dimmed heavily */
         filter: grayscale(100%);
         mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 80%, transparent 100%);
