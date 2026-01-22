@@ -992,6 +992,10 @@ nav a.active {
         font-size: 0.95rem;
     }
 
+    .t-text {
+        font-size: 1.15rem;
+    }
+
     .hero-grid {
         display: block;
         /* Break grid */
