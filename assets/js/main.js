@@ -109,7 +109,7 @@ function initModal() {
    4. Form Submission & Payments
    ========================================= */
 function initForms() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbz1J_jhKVf5c3HIYxwaANMEO95pwmjuBy5GXaCpMG-FcS4TDriJfYaQp8_NewDhFiA/exec'; // User must replace this
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxBc5nP71a-212pnxXdw9HKnPu2BJf0dmJ16NFxYwZ-SxKFOylN5x1Hacad2_KOjXFp/exec'; // User must replace this
     const paystackPublicKey = 'pk_live_961d8aeef06ccf444219f7a67d9153f740959733';
 
     // Pricing Map (in GHS)
@@ -159,7 +159,8 @@ function initForms() {
 
     const settings = {
         'contactForm': { statusId: 'formStatus', type: 'contact' },
-        'registrationForm': { statusId: 'regStatus', type: 'payment' }
+        'registrationForm': { statusId: 'regStatus', type: 'payment' },
+        'hireForm': { statusId: 'hireStatus', type: 'engagement' }
     };
 
     for (const [formId, config] of Object.entries(settings)) {
@@ -177,6 +178,9 @@ function initForms() {
                 const submitBtn = form.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn.innerText;
                 const formData = new FormData(form);
+
+                // Inject Form Type for Backend Routing
+                formData.append('formType', config.type);
 
                 statusDiv.innerText = 'Processing...';
                 submitBtn.disabled = true;
@@ -215,7 +219,7 @@ function initForms() {
                     handler.openIframe();
 
                 } else {
-                    // Normal Contact Form
+                    // Normal Contact or Engagement Form
                     handleSubmission(form, formData, statusDiv, submitBtn, originalBtnText);
                 }
             });

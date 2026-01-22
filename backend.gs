@@ -4,13 +4,9 @@
  */
 
 const CONFIG = {
-  // Replace with the ID of your Google Sheet
   SPREADSHEET_ID: '1VjAEn55aYmWr0U-i1JM1tjTts50D6m1Qyrhwrqd-uoY', 
   ADMIN_EMAIL: 'mrgyan@veritrack.cloud',
-  PAYSTACK_SECRET_KEY: 'sk_test_386ab2f9ed7d0b53f45666721aa4f208e483c28c',
-  BRAND_COLOR: '#3b82f6', // Executive Blue
-  BG_COLOR: '#0f0f11',    // Charcoal
-  TEXT_COLOR: '#f8fafc'
+  PAYSTACK_SECRET_KEY: 'sk_test_386ab2f9ed7d0b53f45666721aa4f208e483c28c'
 };
 
 function doPost(e) {
@@ -18,16 +14,10 @@ function doPost(e) {
   lock.tryLock(10000);
 
   try {
-    // 1. Parse Data
-    var data = {};
-    if (e.parameter) {
-        data = e.parameter;
-    }
+    var data = e.parameter || {};
 
-    // 2. Verify Payment (if reference exists)
-    // Initialize payment info
+    // Verify Payment if needed
     data.paymentAmount = 0;
-    
     if (data.reference) {
         var paymentInfo = verifyPaystack(data.reference);
         if (!paymentInfo.verified) {
@@ -39,13 +29,9 @@ function doPost(e) {
         data.paymentStatus = 'Pending/None';
     }
 
-    // 3. Save to Sheet
+    // Save and Send
     saveToSheet(data);
-
-    // 4. Send Confirmation Email (User)
     sendUserEmail(data);
-
-    // 5. Send Notification Email (Admin)
     sendAdminEmail(data);
 
     return ContentService
@@ -70,158 +56,157 @@ function verifyPaystack(ref) {
         };
         var response = UrlFetchApp.fetch(url, options);
         var json = JSON.parse(response.getContentText());
-        
-        if (json.status && json.data.status === 'success') {
-            return {
-                verified: true,
-                amount: json.data.amount / 100, // Convert kobo to currency
-                channel: json.data.channel
-            };
-        }
+        return {
+            verified: (json.status && json.data.status === 'success'),
+            amount: json.data.amount / 100
+        };
     } catch (e) {
-        Logger.log(e);
+        return { verified: false };
     }
-    return { verified: false };
 }
 
 function saveToSheet(data) {
-    var sheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID).getActiveSheet();
+    var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+    var sheet;
     var timestamp = new Date();
-    
-    sheet.appendRow([
-        timestamp,
-        data.name || '',
-        data.email || '',
-        data.phone || '',
-        data.package || data.subject || '', // Item
-        data.goals || data.message || '',   // Details
-        data.paymentStatus,
-        data.paymentAmount || 0,            // Amount
-        data.reference || ''
-    ]);
+
+    if (data.formType === 'engagement') {
+        // Engagement Sheet
+        sheet = ss.getSheetByName('Engagements');
+        if (!sheet) {
+            sheet = ss.insertSheet('Engagements');
+            sheet.appendRow(['Timestamp', 'Name', 'Email', 'Engagement Type', 'Budget', 'Timeline', 'Scope']);
+        }
+        sheet.appendRow([
+            timestamp,
+            data.name,
+            data.email,
+            data.projectType,
+            data.budget,
+            data.timeline,
+            data.description
+        ]);
+    } else {
+        // Default Contact/Registration Sheet
+        sheet = ss.getSheetByName('Submissions') || ss.getSheets()[0]; // Default to first sheet if 'Submissions' missing
+        // Verify headers if new sheet (optional, skipping for simplicity to just append)
+        sheet.appendRow([
+            timestamp,
+            data.name,
+            data.email,
+            data.phone || '',
+            data.package || data.subject || '', 
+            data.goals || data.message || '',
+            data.paymentStatus,
+            data.paymentAmount || 0,
+            data.reference || ''
+        ]);
+    }
 }
 
 function sendUserEmail(data) {
     if (!data.email) return;
     
-    var subject = "Registration Confirmed: " + (data.package || "Inquiry Received");
+    var isEngagement = (data.formType === 'engagement');
+    var subject = isEngagement 
+        ? "Project Initiation Received: Executive Engagement" 
+        : "Registration Confirmed: " + (data.package || "Inquiry Received");
+
+    // Dynamic Content based on type
+    var contentHtml = '';
+    
+    if (isEngagement) {
+        contentHtml = `
+            <h2 style="color:#0f0f11; font-size:22px; margin-top:0;">Hello ${data.name},</h2>
+            <p style="color:#475569; font-size:16px; line-height:1.6;">
+                I have received your project brief regarding <strong>${data.projectType}</strong>. 
+                Thank you for considering me as your technical partner.
+            </p>
+            <p style="color:#475569; font-size:16px; line-height:1.6;">
+                I am currently reviewing your requirements (Budget: ${data.budget}, Timeline: ${data.timeline}). 
+                If the scope aligns with my current capacity and expertise, I will reach out within 48 hours to schedule a preliminary strategy session.
+            </p>
+        `;
+    } else {
+        contentHtml = `
+            <h2 style="color:#0f0f11; font-size:22px; margin-top:0;">Hello ${data.name},</h2>
+            <p style="color:#475569; font-size:16px; line-height:1.6;">
+                Thank you for your registration. This email confirms that we have received your submission for <strong>${data.package || 'Contact Inquiry'}</strong>.
+            </p>
+            ${data.reference ? `
+            <div style="background-color:#eff6ff; border-left:4px solid #3b82f6; padding:15px; margin:25px 0;">
+                <p style="margin:0; color:#1e40af; font-weight:bold;">PAYMENT VERIFIED</p>
+                <p style="margin:5px 0 0; color:#3b82f6;">Amount: GHS ${data.paymentAmount}</p>
+                <p style="margin:0; color:#64748b; font-size:12px;">Ref: ${data.reference}</p>
+            </div>` : ''}
+            <p style="color:#475569; font-size:16px; line-height:1.6;">
+                 I review every application personally. You will receive a follow-up email shortly.
+            </p>
+        `;
+    }
+
     var htmlBody = `
     <!DOCTYPE html>
     <html>
-    <body style="margin:0; padding:0; background-color:#f4f4f5; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;">
-        <div style="max-width:600px; margin:0 auto; background-color:#ffffff; border-radius:4px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-            <!-- Header -->
+    <body style="margin:0; padding:0; background-color:#f4f4f5; font-family:Helvetica, Arial, sans-serif;">
+        <div style="max-width:600px; margin:0 auto; background-color:#ffffff; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
             <div style="background-color:#0f0f11; padding:30px 40px; text-align:center; border-bottom: 3px solid #3b82f6;">
-                <h1 style="color:#ffffff; margin:0; font-size:20px; letter-spacing:1px; font-weight:600;">STEPHEN GYAN BIMPONG</h1>
-                <p style="color:#94a3b8; margin:5px 0 0; font-size:12px; text-transform:uppercase; letter-spacing:2px;">Systems Architect & Tech Coach</p>
+                <h1 style="color:#ffffff; margin:0; font-size:20px; letter-spacing:1px;">STEPHEN GYAN BIMPONG</h1>
+                <p style="color:#94a3b8; margin:5px 0 0; font-size:12px; letter-spacing:2px; text-transform:uppercase;">Systems Architect</p>
             </div>
-            
-            <!-- Content -->
             <div style="padding:40px;">
-                <h2 style="color:#0f0f11; font-size:22px; margin-top:0;">Hello ${data.name},</h2>
-                <p style="color:#475569; font-size:16px; line-height:1.6;">
-                    Thank you for your registration. This email confirms that we have received your submission for <strong>${data.package || 'Contact Inquiry'}</strong>.
-                </p>
-                
-                ${data.reference ? `
-                <div style="background-color:#eff6ff; border-left:4px solid #3b82f6; padding:15px; margin:25px 0; border-radius: 2px;">
-                    <p style="margin:0; color:#1e40af; font-weight:bold; font-size:14px;">PAYMENT VERIFIED</p>
-                    <p style="margin:5px 0 0; color:#3b82f6; font-size:13px;">Amount: GHS ${data.paymentAmount}</p>
-                    <p style="margin:2px 0 0; color:#64748b; font-size:13px;">Ref: ${data.reference}</p>
-                </div>
-                ` : ''}
-                
-                <p style="color:#475569; font-size:16px; line-height:1.6;">
-                    I review every application personally to ensure we are a good fit. You will receive a follow-up email with the next steps shortly.
-                </p>
-                
+                ${contentHtml}
                 <p style="color:#475569; font-size:16px; margin-top:30px;">
-                    Best regards,<br>
-                    <strong>Stephen Gyan Bimpong</strong><br>
-                    <span style="font-size:13px; color:#64748b;">CEO, VeriTrack Systems</span>
+                    Best regards,<br><strong>Stephen Gyan Bimpong</strong>
                 </p>
-            </div>
-            
-            <!-- Footer -->
-            <div style="background-color:#1a1a1d; padding:20px; text-align:center; color:#64748b; font-size:12px;">
-                <p style="margin:0;">&copy; ${new Date().getFullYear()} Stephen Gyan Bimpong. All rights reserved.</p>
-                <div style="margin-top:10px;">
-                    <a href="https://linkedin.com/in/stephen-gyan-bimpong" style="color:#94a3b8; text-decoration:none; margin:0 5px;">LinkedIn</a> • 
-                    <a href="https://x.com/_Stephen_Gyan" style="color:#94a3b8; text-decoration:none; margin:0 5px;">X (Twitter)</a>
-                </div>
             </div>
         </div>
     </body>
     </html>
     `;
     
-    GmailApp.sendEmail(data.email, subject, "Thank you for your registration.", {
+    GmailApp.sendEmail(data.email, subject, "Thank you for your submission.", {
         htmlBody: htmlBody,
         name: "Stephen Gyan Bimpong"
     });
 }
 
 function sendAdminEmail(data) {
-    var subject = "New Submission: " + (data.package || data.subject || "Contact Form");
+    var isEngagement = (data.formType === 'engagement');
+    var subject = isEngagement 
+        ? "🚨 NEW LEAD: " + data.projectType + " (" + data.budget + ")"
+        : "New Submission: " + (data.package || data.subject || "Contact Form");
     
+    var tableRows = '';
+    
+    if (isEngagement) {
+        tableRows = `
+            <tr><td><strong>Name</strong></td><td>${data.name}</td></tr>
+            <tr><td><strong>Email</strong></td><td>${data.email}</td></tr>
+            <tr><td><strong>Type</strong></td><td>${data.projectType}</td></tr>
+            <tr><td><strong>Budget</strong></td><td>${data.budget}</td></tr>
+            <tr><td><strong>Timeline</strong></td><td>${data.timeline}</td></tr>
+            <tr><td><strong>Scope</strong></td><td>${data.description}</td></tr>
+        `;
+    } else {
+        tableRows = `
+            <tr><td><strong>Name</strong></td><td>${data.name}</td></tr>
+            <tr><td><strong>Email</strong></td><td>${data.email}</td></tr>
+            <tr><td><strong>Phone</strong></td><td>${data.phone || 'N/A'}</td></tr>
+            <tr><td><strong>Item</strong></td><td>${data.package || data.subject}</td></tr>
+            <tr><td><strong>Message</strong></td><td>${data.goals || data.message}</td></tr>
+            <tr><td><strong>Payment</strong></td><td>${data.paymentStatus} (${data.paymentAmount})</td></tr>
+        `;
+    }
+
     var htmlBody = `
-    <!DOCTYPE html>
-    <html>
-    <body style="margin:0; padding:0; background-color:#f4f4f5; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;">
-        <div style="max-width:600px; margin:0 auto; background-color:#ffffff; border-radius:4px; overflow:hidden;">
-            <div style="background-color:#1a1a1d; padding:20px; color:#ffffff; text-align:center;">
-                <h2 style="margin:0; font-size:18px;">New Submission Received</h2>
-                <p style="margin:5px 0 0; font-size:12px; color:#94a3b8;">${new Date().toLocaleString()}</p>
-            </div>
-            
-            <div style="padding:30px;">
-                <table style="width:100%; border-collapse:collapse;">
-                    <tr style="border-bottom:1px solid #e2e8f0;">
-                        <td style="padding:10px 0; color:#64748b; width:120px; font-size:14px;"><strong>Name</strong></td>
-                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;">${data.name}</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;">
-                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Email</strong></td>
-                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;"><a href="mailto:${data.email}" style="color:#3b82f6; text-decoration:none;">${data.email}</a></td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;">
-                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Phone</strong></td>
-                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;"><a href="tel:${data.phone}" style="color:#3b82f6; text-decoration:none;">${data.phone}</a></td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;">
-                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Item/Package</strong></td>
-                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;">${data.package || data.subject}</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;">
-                        <td style="padding:10px 0; color:#64748b; font-size:14px;"><strong>Message/Goals</strong></td>
-                        <td style="padding:10px 0; color:#0f0f11; font-size:14px;">${data.goals || data.message}</td>
-                    </tr>
-                    ${data.reference ? `
-                    <tr style="background-color:#f0fdf4;">
-                        <td style="padding:10px; color:#15803d; font-size:14px;"><strong>Payment</strong></td>
-                        <td style="padding:10px; color:#15803d; font-size:14px;">
-                            <strong>GHS ${data.paymentAmount}</strong><br>
-                            <span style="font-size:12px;">Ref: ${data.reference}</span>
-                        </td>
-                    </tr>
-                    ` : ''}
-                </table>
-                
-                <div style="margin-top:30px; text-align:center;">
-                    <a href="https://docs.google.com/spreadsheets/d/${CONFIG.SPREADSHEET_ID}" style="background-color:#0f0f11; color:#ffffff; padding:10px 20px; text-decoration:none; border-radius:4px; font-size:14px;">View in Google Sheets</a>
-                </div>
-            </div>
-        </div>
-    </body>
-    </html>
+    <h2>New Submission</h2>
+    <table border="1" cellpadding="10" style="border-collapse:collapse; width:100%;">
+        ${tableRows}
+    </table>
     `;
     
     GmailApp.sendEmail(CONFIG.ADMIN_EMAIL, subject, "New submission received.", {
         htmlBody: htmlBody
     });
-}
-
-function setup() {
-    var sheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID).getActiveSheet();
-    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Phone', 'Item', 'Details', 'Payment Status', 'Amount', 'Reference']);
 }
