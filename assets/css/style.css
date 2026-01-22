@@ -1090,9 +1090,9 @@ nav a.active {
     .hero {
         min-height: 100dvh;
         padding-top: 0;
-        padding-bottom: 0;
+        padding-bottom: 4rem;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
     }
 
     h1 {
