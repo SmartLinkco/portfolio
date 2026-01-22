@@ -443,3 +443,46 @@ function initTestimonialCarousel() {
     track.addEventListener('mouseenter', () => clearInterval(interval));
     track.addEventListener('mouseleave', resetTimer);
 }
+
+/* =========================================
+   7. Cursor Spotlight Effect
+   ========================================= */
+function initCursorEffect() {
+    // Check if device supports hover (desktop) - REMOVED to force render for testing
+    // if (window.matchMedia('(hover: none)').matches) return;
+
+    const glow = document.createElement('div');
+    glow.classList.add('cursor-glow');
+    document.body.appendChild(glow);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let glowX = 0;
+    let glowY = 0;
+
+    // Track mouse
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Smooth follow loop
+    const animateGlow = () => {
+        // Linear interpolation for smooth lag
+        const speed = 0.15; // 0 to 1 (1 = instant)
+
+        glowX += (mouseX - glowX) * speed;
+        glowY += (mouseY - glowY) * speed;
+
+        glow.style.transform = `translate(${glowX}px, ${glowY}px) translate(-50%, -50%)`;
+
+        requestAnimationFrame(animateGlow);
+    };
+
+    animateGlow();
+}
+
+// Init Cursor
+document.addEventListener('DOMContentLoaded', () => {
+    initCursorEffect();
+});

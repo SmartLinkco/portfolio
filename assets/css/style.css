@@ -798,6 +798,34 @@ nav a.active {
     border-color: var(--accent-blue);
 }
 
+/* --- Interactive Cursor Spotlight --- */
+/* --- Interactive Cursor Spotlight --- */
+.cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    /* Above most content, but blend mode handles the look */
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    mix-blend-mode: screen;
+    /* Nice techy blend */
+    will-change: transform;
+    opacity: 1;
+}
+
+/* Hide on mobile/touch */
+@media (hover: none) and (pointer: coarse) {
+    .cursor-glow {
+        display: none !important;
+    }
+}
+
 
 /* --- About Page Highlights --- */
 .text-highlight {
