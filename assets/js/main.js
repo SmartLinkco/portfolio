@@ -244,7 +244,7 @@ function initInPersonCarousel() {
 
     // Loop Variables
     let scrollAmount = 0;
-    const speedNormal = 0.8; // pixels per frame
+    const speedNormal = 1.2; // pixels per frame
     let currentSpeed = speedNormal;
     let isPaused = false;
     let animationId;
@@ -351,3 +351,95 @@ function initInPersonCarousel() {
 }
 
 initInPersonCarousel();
+
+/* =========================================
+   6. Testimonial Carousel Logic
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    initTestimonialCarousel();
+});
+
+function initTestimonialCarousel() {
+    const track = document.getElementById('testimonialTrack');
+    const cards = document.querySelectorAll('.testimonial-card');
+    const prevBtn = document.getElementById('t-prev');
+    const nextBtn = document.getElementById('t-next');
+    const dotsContainer = document.getElementById('t-dots');
+
+    if (!track || cards.length === 0) return;
+
+    let currentIndex = 0;
+    const totalSlides = cards.length;
+
+    // Create Dots
+    if (dotsContainer) {
+        dotsContainer.innerHTML = ''; // Clear existing
+        cards.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('t-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                resetTimer();
+            });
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    const dots = document.querySelectorAll('.t-dot');
+
+    const updateClasses = () => {
+        // Update Cards
+        cards.forEach((card, index) => {
+            card.classList.remove('active');
+            if (index === currentIndex) card.classList.add('active');
+        });
+
+        // Update Dots
+        dots.forEach((dot, index) => {
+            dot.classList.remove('active');
+            if (index === currentIndex) dot.classList.add('active');
+        });
+    };
+
+    const goToSlide = (index) => {
+        if (index < 0) {
+            currentIndex = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+
+        const translateX = -(currentIndex * 100);
+        track.style.transform = `translateX(${translateX}%)`;
+        updateClasses();
+    };
+
+    // Auto Play (5 seconds)
+    let interval = setInterval(() => goToSlide(currentIndex + 1), 5000);
+
+    const resetTimer = () => {
+        clearInterval(interval);
+        interval = setInterval(() => goToSlide(currentIndex + 1), 5000);
+    };
+
+    // Event Listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            goToSlide(currentIndex + 1);
+            resetTimer();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            goToSlide(currentIndex - 1);
+            resetTimer();
+        });
+    }
+
+    // Pause on hover
+    track.addEventListener('mouseenter', () => clearInterval(interval));
+    track.addEventListener('mouseleave', resetTimer);
+}
