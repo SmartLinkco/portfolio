@@ -536,8 +536,60 @@ function initTypewriter() {
     type();
 }
 
-// Init Cursor & Typewriter
+/* =========================================
+   9. Tech Particles Ambience
+   ========================================= */
+function initTechParticles() {
+    const container = document.createElement('div');
+    container.id = 'tech-particles';
+    container.style.position = 'fixed';
+
+    container.style.top = '0';
+    container.style.left = '0';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    container.style.pointerEvents = 'none';
+    container.style.zIndex = '0';
+    container.style.overflow = 'hidden';
+    document.body.prepend(container);
+
+    const symbols = ['0', '1', '+', '{ }', '•', '⬡'];
+    const particleCount = 25; // Number of particles
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('tech-particle');
+        particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+        // Random positioning and delay
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's'; // 10-20s float
+        particle.style.animationDelay = (Math.random() * 5) + 's';
+        particle.style.fontSize = (Math.random() * 0.8 + 0.5) + 'rem';
+        particle.style.opacity = Math.random() * 0.3 + 0.1; // Subtle opacity
+
+        container.appendChild(particle);
+    }
+}
+
+function initFloatingPulse() {
+    const pulse = document.createElement('div');
+    pulse.classList.add('floating-pulse');
+    pulse.innerHTML = '<div class="pulse-core"></div>';
+    pulse.title = "System Online";
+
+    // Optional: Add click behavior (scroll to top or contact)
+    pulse.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.body.appendChild(pulse);
+}
+
+// Init Cursor & Typewriter & Particles & Pulse
 document.addEventListener('DOMContentLoaded', () => {
     initCursorEffect();
     initTypewriter();
+    initTechParticles();
+    initFloatingPulse();
 });

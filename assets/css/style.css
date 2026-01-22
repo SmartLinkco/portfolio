@@ -1042,7 +1042,7 @@ nav a.active {
     }
 
     .hero-image {
-        width: 150%;
+        width: 100%;
         /* Slight zoom */
         margin-left: -10%;
         /* Center the zoom */
@@ -1081,9 +1081,11 @@ nav a.active {
     }
 
     .hero {
-        min-height: auto;
-        padding-top: calc(var(--header-height) + 2rem);
-        padding-bottom: 4rem;
+        min-height: 100dvh;
+        padding-top: 0;
+        padding-bottom: 0;
+        display: flex;
+        align-items: center;
     }
 
     h1 {
@@ -1105,5 +1107,99 @@ nav a.active {
         font-size: 0.95rem;
         white-space: nowrap;
         /* Prevent wrap as requested */
+    }
+}
+
+/* --- Tech Particles --- */
+.tech-particle {
+    position: absolute;
+    top: -5%;
+    color: var(--accent-blue);
+    font-family: monospace;
+    user-select: none;
+    will-change: transform, opacity;
+    animation-name: floatDown;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes floatDown {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.4;
+    }
+
+    90% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateY(110vh) translateX(20px) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* --- Floating Pulse (Tech Bell) --- */
+.floating-pulse {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(26, 26, 29, 0.8);
+    border: 1px solid var(--border-subtle);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    transition: var(--transition-medium);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.floating-pulse:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-blue);
+}
+
+.pulse-core {
+    width: 12px;
+    height: 12px;
+    background: var(--accent-blue);
+    border-radius: 50%;
+    position: relative;
+}
+
+.pulse-core::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: var(--accent-blue);
+    border-radius: 50%;
+    animation: pulseWave 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+    z-index: -1;
+}
+
+@keyframes pulseWave {
+    0% {
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+    }
+
+    100% {
+        width: 300%;
+        height: 300%;
+        opacity: 0;
     }
 }
