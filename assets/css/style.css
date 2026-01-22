@@ -965,8 +965,28 @@ nav a.active {
     transition: var(--transition-fast);
 }
 
-.contact-info-link:hover {
-    color: var(--text-primary);
+
+/* --- Typing Effect --- */
+.typing-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: var(--accent-blue);
+    margin-left: 2px;
+    -webkit-text-fill-color: initial;
+    /* Override gradient transparency */
+    text-fill-color: initial;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 @media (max-width: 900px) {
