@@ -1,3 +1,51 @@
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/inter-latin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/inter-latin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/inter-latin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/outfit-latin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/outfit-latin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/outfit-latin.woff2') format('woff2');
+}
+
 :root {
     /* -- Deep Neutral Palette -- */
     --bg-body: #0f0f11;
@@ -216,17 +264,27 @@ nav a.active {
     color: var(--text-primary);
 }
 
-.nav-cta {
-    display: none;
-    /* Desktop CTA in nav if needed, or mobile toggle */
-}
-
 /* Mobile Toggle */
 .menu-toggle {
     display: none;
     flex-direction: column;
     gap: 6px;
     cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+}
+
+.visually-quiet {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .menu-toggle span {
@@ -434,6 +492,18 @@ nav a.active {
     justify-content: center;
 }
 
+.project-preview picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.project-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .project-overlay {
     position: absolute;
     top: 0;
@@ -480,43 +550,6 @@ nav a.active {
 
 .project-link:hover {
     text-decoration: underline;
-}
-
-/* Specific Project Gradients (Placeholders) */
-.bg-veritrack {
-    background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
-}
-
-.bg-finance {
-    background: linear-gradient(135deg, #065f46 0%, #064e3b 100%);
-}
-
-.bg-auralis {
-    background: linear-gradient(135deg, #701a75 0%, #4a044e 100%);
-}
-
-.bg-techjam {
-    background: linear-gradient(135deg, #be185d 0%, #831843 100%);
-}
-
-.bg-confyd {
-    background: linear-gradient(135deg, #b45309 0%, #78350f 100%);
-}
-
-.bg-trading {
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-}
-
-.bg-neuro {
-    background: linear-gradient(135deg, #0e7490 0%, #155e75 100%);
-}
-
-.bg-connect {
-    background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%);
-}
-
-.bg-agri {
-    background: linear-gradient(135deg, #166534 0%, #14532d 100%);
 }
 
 /* --- Forms & Modal --- */
@@ -598,6 +631,11 @@ nav a.active {
     position: relative;
     user-select: none;
     /* Prevent selection while dragging */
+}
+
+.in-person-item picture {
+    display: block;
+    height: 100%;
 }
 
 .in-person-item img {
@@ -798,7 +836,75 @@ nav a.active {
     border-color: var(--accent-blue);
 }
 
-/* --- Interactive Cursor Spotlight --- */
+.hero-role {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    min-height: 1.6em;
+    color: var(--accent-blue);
+    margin-bottom: 0.75rem;
+}
+
+.hero-statement {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 2.4vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-top: 0.75rem;
+}
+
+.sidebar-heading {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+}
+
+.t-avatar-initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e293b;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+}
+
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    z-index: 10000;
+    background: #fff;
+    color: #0f0f11;
+    padding: 0.5rem 1rem;
+}
+
+.step-num {
+    display: block;
+    color: var(--accent-blue);
+    margin-bottom: 0.35rem;
+}
+
+@media (max-width: 800px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- Interactive Cursor Spotlight --- */
 .cursor-glow {
     position: fixed;
@@ -872,6 +978,10 @@ nav a.active {
     border-radius: 4px;
     overflow: hidden;
     border: 1px solid var(--border-subtle);
+}
+
+.authoritative-image picture {
+    display: block;
 }
 
 .authoritative-image img {
@@ -1065,7 +1175,7 @@ nav a.active {
         justify-content: center;
     }
 
-    .hero p {
+    .hero .hero-lead {
         font-size: 1rem;
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         line-height: 1.6;
