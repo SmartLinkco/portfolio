@@ -4,6 +4,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-year]').forEach((el) => {
+        el.textContent = String(new Date().getFullYear());
+    });
     initNavigation();
     initAnimations();
     initModal();
@@ -23,6 +26,7 @@ function initNavigation() {
             if (isVisible) {
                 nav.style.display = ''; // Reset to CSS default (hidden on mobile)
                 toggle.classList.remove('active');
+                toggle.setAttribute('aria-expanded', 'false');
             } else {
                 nav.style.display = 'flex';
                 nav.style.flexDirection = 'column';
@@ -34,6 +38,7 @@ function initNavigation() {
                 nav.style.padding = '2rem';
                 nav.style.borderBottom = '1px solid var(--border-subtle)';
                 toggle.classList.add('active');
+                toggle.setAttribute('aria-expanded', 'true');
             }
         });
     }
@@ -57,7 +62,7 @@ function initAnimations() {
         });
     }, observerOptions);
 
-    const elements = document.querySelectorAll('section > .container > *');
+    const elements = document.querySelectorAll('section:not(.hero) > .container > *');
     elements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
@@ -108,8 +113,20 @@ function initModal() {
 /* =========================================
    4. Form Submission & Payments
    ========================================= */
+function loadPaystack() {
+    if (window.PaystackPop) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://js.paystack.co/v1/inline.js';
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error('Paystack failed to load'));
+        document.head.appendChild(script);
+    });
+}
+
 function initForms() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxBc5nP71a-212pnxXdw9HKnPu2BJf0dmJ16NFxYwZ-SxKFOylN5x1Hacad2_KOjXFp/exec'; // User must replace this
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxBc5nP71a-212pnxXdw9HKnPu2BJf0dmJ16NFxYwZ-SxKFOylN5x1Hacad2_KOjXFp/exec';
     const paystackPublicKey = 'pk_live_961d8aeef06ccf444219f7a67d9153f740959733';
 
     // Pricing Map (in GHS)
@@ -122,9 +139,13 @@ function initForms() {
     const handleSubmission = (form, formData, statusDiv, submitBtn, originalBtnText) => {
         fetch(scriptURL, {
             method: 'POST',
-            body: formData
+            body: formData,
+            keepalive: true
         })
             .then(response => {
+                if (response.type !== 'opaque' && !response.ok) {
+                    throw new Error('Request failed');
+                }
                 if (form.id === 'registrationForm') {
                     // Transform modal to success state
                     const modalContent = form.closest('.modal-content');
@@ -197,6 +218,7 @@ function initForms() {
                         return;
                     }
 
+                    loadPaystack().then(() => {
                     const handler = PaystackPop.setup({
                         key: paystackPublicKey,
                         email: email,
@@ -217,6 +239,11 @@ function initForms() {
                     });
 
                     handler.openIframe();
+                    }).catch(() => {
+                        statusDiv.innerText = 'Payment could not start. Try again.';
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = originalBtnText;
+                    });
 
                 } else {
                     // Normal Contact or Engagement Form
@@ -452,8 +479,7 @@ function initTestimonialCarousel() {
    7. Cursor Spotlight Effect
    ========================================= */
 function initCursorEffect() {
-    // Check if device supports hover (desktop) - REMOVED to force render for testing
-    // if (window.matchMedia('(hover: none)').matches) return;
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
     const glow = document.createElement('div');
     glow.classList.add('cursor-glow');
@@ -501,8 +527,9 @@ function initTypewriter() {
     // Let's treat it as one full statement for now based on request "make THIS text... be texted out".
 
     const phrases = [
-        "Building Scalable Systems.",
-        "Coaching Elite Tech Talent."
+        "CEO, VeriTrack Systems.",
+        "Websites and systems, SmartLinkco.",
+        "Speaking and technical coaching."
     ];
 
     let phraseIndex = 0;
@@ -544,6 +571,8 @@ function initTypewriter() {
    9. Tech Particles Ambience
    ========================================= */
 function initTechParticles() {
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+
     const container = document.createElement('div');
     container.id = 'tech-particles';
     container.style.position = 'fixed';

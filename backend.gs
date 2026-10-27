@@ -10,13 +10,11 @@ const CONFIG = {
 };
 
 function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.tryLock(10000);
-
   try {
     var data = e.parameter || {};
 
-    // Verify Payment if needed
+    // Verify payment before taking the sheet lock so Paystack's
+    // network call does not block other submissions.
     data.paymentAmount = 0;
     if (data.reference) {
         var paymentInfo = verifyPaystack(data.reference);
@@ -29,10 +27,18 @@ function doPost(e) {
         data.paymentStatus = 'Pending/None';
     }
 
-    // Save and Send
-    saveToSheet(data);
-    sendUserEmail(data);
-    sendAdminEmail(data);
+    var lock = LockService.getScriptLock();
+    var locked = lock.tryLock(3000);
+    try {
+      saveToSheet(data);
+    } finally {
+      if (locked) lock.releaseLock();
+    }
+
+    // Mail is best-effort. A mail failure should not turn a saved
+    // submission into an error for the person who just wrote in.
+    try { sendUserEmail(data); } catch (mailErr) {}
+    try { sendAdminEmail(data); } catch (mailErr) {}
 
     return ContentService
       .createTextOutput(JSON.stringify({ 'result': 'success' }))
@@ -42,8 +48,6 @@ function doPost(e) {
     return ContentService
       .createTextOutput(JSON.stringify({ 'result': 'error', 'error': err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
-  } finally {
-    lock.releaseLock();
   }
 }
 

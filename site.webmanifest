@@ -1,0 +1,26 @@
+{
+  "name": "Stephen Gyan Bimpong",
+  "short_name": "Stephen Gyan",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0f0f11",
+  "theme_color": "#0f0f11",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/assets/images/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
